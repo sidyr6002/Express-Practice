@@ -42,7 +42,7 @@ const server = http.createServer((req, res) => {
           <div style = "display: grid; justify-content: center; align-items:center; height:100vh;">
             <div style="text-align: center;">
                 <h1>This is the wrong page</h1>
-                <a href="/home">Go Home</a>
+                <a href="/">Go Home</a>
             </div>
           </div>
         `);
