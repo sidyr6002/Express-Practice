@@ -1,16 +1,36 @@
-const path = require("path");
+const { products } = require("./data");
 const express = require("express");
 const app = express();
 
 const hostName = "127.0.0.8";
 const port = 4040;
 
-app.use(express.static('./navbar-app/resources/javascript'));
-app.use(express.static('./navbar-app/resources/css'));
-app.use(express.static('./navbar-app/resources/images'));
-
 app.get("/", (req, res) => {
-    res.sendFile(path.resolve(__dirname, `./navbar-app/index.html`));
+    res.send(`
+        <div style = "display: grid; justify-content: center; align-items:center; height:100vh;">
+            <div style="text-align: center;">
+                <h1>Home Page</h1>
+                <a href="/api/products">Products</a>
+            </div>
+        </div>
+    `);
+});
+
+app.get("/api/products", (req, res) => {
+    const consProducts = products.map(({ item, name, image }) => ({item, name, image }));
+    res.json(consProducts);
+});
+
+app.get("/api/products/:productId", (req, res) => {
+    const { productId } = req.params;
+    const singleProduct = products.find(
+        (product) => product.id === Number(productId)
+    );
+
+    if(!singleProduct) {
+        console.log(`Product with id: ${productId} is not found`)
+    }
+    res.json(singleProduct);
 });
 
 app.all("*", (req, res) => {
