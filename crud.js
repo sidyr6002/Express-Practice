@@ -3,7 +3,7 @@ const app = express();
 let { people } = require(`./data`);
 
 //--------------- HOST AND PORT ----------------------
-const hostName = "127.0.0.8";
+const hostName = "127.0.0.7";
 const port = "4040";
 
 //--------------- MIDDLEWARE -----------------------
@@ -59,7 +59,7 @@ app.put("/people/:id", (req, res) => {
     console.log("person: -------", person)
 
     if (person == undefined) {
-        return res.status(404).json({ success: false, data: `No person with Id: ${id} is found` });
+        return res.status(404).json({ success: false, data: `Not person with Id: ${id} is found` });
     }
 
     person.name = name;
